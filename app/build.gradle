@@ -31,4 +31,8 @@ dependencies {
     //UI dependency for coordinator layout
     compile 'com.android.support:design:25.3.1'
 
+    //Bottom navigation external library
+    compile 'com.github.ittianyu:BottomNavigationViewEx:1.2.1'
+
+
 }
