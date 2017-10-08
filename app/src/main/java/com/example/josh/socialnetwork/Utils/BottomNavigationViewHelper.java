@@ -7,12 +7,12 @@ import android.support.design.widget.BottomNavigationView;
 import android.util.Log;
 import android.view.MenuItem;
 
-import com.example.josh.socialnetwork.HomeActivity;
-import com.example.josh.socialnetwork.LikesActivity;
-import com.example.josh.socialnetwork.ProfileActivity;
+import com.example.josh.socialnetwork.Home.HomeActivity;
+import com.example.josh.socialnetwork.Likes.LikesActivity;
+import com.example.josh.socialnetwork.Profile.ProfileActivity;
 import com.example.josh.socialnetwork.R;
-import com.example.josh.socialnetwork.SearchActivity;
-import com.example.josh.socialnetwork.ShareActivity;
+import com.example.josh.socialnetwork.Search.SearchActivity;
+import com.example.josh.socialnetwork.Share.ShareActivity;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 /**

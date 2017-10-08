@@ -1,12 +1,15 @@
-package com.example.josh.socialnetwork;
+package com.example.josh.socialnetwork.Home;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.josh.socialnetwork.R;
 import com.example.josh.socialnetwork.Utils.BottomNavigationViewHelper;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
@@ -24,6 +27,27 @@ public class HomeActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: This is the starting Bro..I'm being anti feminist");
 
         setupBottomNavigationView();
+        setupViewPager();
+    }
+
+    /**
+     * For adding the three tabs
+     *
+     */
+    private void setupViewPager(){
+        SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new CameraFragment());//index = 0
+        adapter.addFragment(new HomeFragment());////index = 1
+        adapter.addFragment(new MessagesFragment());//index = 2
+        ViewPager viewPager = (ViewPager) findViewById(R.id.container);
+        viewPager.setAdapter(adapter);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_camera);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_insta);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_arrow);
     }
 
     /**

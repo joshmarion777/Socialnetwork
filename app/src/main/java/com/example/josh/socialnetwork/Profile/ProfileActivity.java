@@ -1,4 +1,4 @@
-package com.example.josh.socialnetwork;
+package com.example.josh.socialnetwork.Profile;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.josh.socialnetwork.R;
 import com.example.josh.socialnetwork.Utils.BottomNavigationViewHelper;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
@@ -15,13 +16,13 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
  * Created by JOSH on 04-10-2017.
  */
 
-public class SearchActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
 
-    private static final String TAG = "SearchActivity";
-    private static final int ACTIVITY_NUM = 1;
+    private static final String TAG = "ProfileActivity";
+    private static final int ACTIVITY_NUM = 4;
 
 
-    private Context mContext = SearchActivity.this ;
+    private Context mContext = ProfileActivity.this ;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
