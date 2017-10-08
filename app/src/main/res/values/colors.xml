@@ -7,4 +7,5 @@
     <!--Colors added for Drawable -->
     <color name="grey">#cccccc</color>
     <color name="white">#ffff</color>
+    <color name="black">#000000</color>
 </resources>
