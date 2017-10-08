@@ -33,6 +33,7 @@ dependencies {
 
     //Bottom navigation external library
     compile 'com.github.ittianyu:BottomNavigationViewEx:1.2.1'
-
+    //Circle Profile picture external library
+    compile 'de.hdodenhof:circleimageview:2.1.0'
 
 }

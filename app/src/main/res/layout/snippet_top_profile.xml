@@ -4,7 +4,7 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="30dp">
 
         <TextView
@@ -88,13 +88,13 @@
             android:textColor="@color/black"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="419dp"
             android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/textFolowers"
-            app:layout_constraintVertical_bias="0.134"
-            tools:layout_editor_absoluteY="55dp"
             android:textAlignment="center"
-            android:background="@drawable/grey_border"/>
+            android:background="@drawable/grey_border"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintVertical_bias="0.023" />
     </android.support.constraint.ConstraintLayout>
 </merge>
