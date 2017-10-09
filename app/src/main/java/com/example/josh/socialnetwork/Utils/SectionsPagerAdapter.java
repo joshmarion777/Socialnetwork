@@ -1,4 +1,4 @@
-package com.example.josh.socialnetwork.Home;
+package com.example.josh.socialnetwork.Utils;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

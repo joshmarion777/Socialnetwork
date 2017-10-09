@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import com.example.josh.socialnetwork.R;
 import com.example.josh.socialnetwork.Utils.BottomNavigationViewHelper;
+import com.example.josh.socialnetwork.Utils.SectionsPagerAdapter;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 public class HomeActivity extends AppCompatActivity {
