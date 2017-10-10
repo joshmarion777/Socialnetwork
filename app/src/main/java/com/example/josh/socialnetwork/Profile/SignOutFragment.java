@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.josh.socialnetwork.R;
+import com.example.josh.socialnetwork.Utils.UniversalImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * Created by JOSH on 09-10-2017.
@@ -22,6 +24,12 @@ public class SignOutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_signout ,container , false);
 
+        initImageLoader();
+
         return view;
+    }
+    private void initImageLoader(){
+        UniversalImageLoader universalImageLoader = new UniversalImageLoader(getActivity());
+        ImageLoader.getInstance().init(universalImageLoader.getConfig());
     }
 }

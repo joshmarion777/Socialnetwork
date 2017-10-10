@@ -42,7 +42,10 @@ public class ProfileActivity extends AppCompatActivity {
         setupBottomNavigationView();
 
         setupToolBar();
+
+
     }
+
 
     /**
      * This the top toolbar for the profile and the account settings
@@ -76,4 +79,6 @@ public class ProfileActivity extends AppCompatActivity {
         menuItem.setChecked(true);
 
     }
+
+
 }
