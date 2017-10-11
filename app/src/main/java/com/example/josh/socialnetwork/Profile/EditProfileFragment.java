@@ -11,7 +11,6 @@ import android.widget.ImageView;
 
 import com.example.josh.socialnetwork.R;
 import com.example.josh.socialnetwork.Utils.UniversalImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * Created by JOSH on 09-10-2017.
@@ -28,17 +27,21 @@ public class EditProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_editprofile ,container , false);
         mProfilePhoto = (ImageView) view.findViewById(R.id.profile_photo);
 
-        initImageLoader();
 
         setProfileImage();
+        //backarrow for navigating back to "Profile Activity"
+        ImageView backArrow = (ImageView) view.findViewById(R.id.backArrow);
+        backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: navigating to Profile Activity");
+                getActivity().finish();
+            }
+        });
 
         return view;
     }
-    private void initImageLoader(){
-        Log.d(TAG, "initImageLoader: initializing Image loader");
-        UniversalImageLoader universalImageLoader = new UniversalImageLoader(getActivity());
-        ImageLoader.getInstance().init(universalImageLoader.getConfig());
-    }
+
     private void setProfileImage(){
         Log.d(TAG, "setProfileImage: setting Image Profile");
         String imgURL = "dailypost.in/wp-content/uploads/2017/06/steve-jobs-31.jpg";
