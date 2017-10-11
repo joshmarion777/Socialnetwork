@@ -30,6 +30,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private static final String TAG = "ProfileActivity";
     private static final int ACTIVITY_NUM = 4;
+    private static final int NUM_GRID_COLUMNS = 3;
 
 
     private Context mContext = ProfileActivity.this ;
@@ -60,12 +61,21 @@ public class ProfileActivity extends AppCompatActivity {
             imgURLs.add("http://hd.wallpaperswide.com/thumbs/iron_man_helmet-t2.jpg");
             imgURLs.add("https://vignette3.wikia.nocookie.net/marvelcinematicuniverse/images/4/44/AoU_Hulkbuster_01.png/revision/latest/scale-to-width-down/2000?cb=20160502163433");
             imgURLs.add("https://i.ytimg.com/vi/FAciZRkOKQs/maxresdefault.jpg");
+            imgURLs.add("https://www.w3schools.com/css/img_fjords.jpg");
+            imgURLs.add("https://www.quirkybyte.com/wp-content/uploads/2017/01/marvel.jpg");
+            imgURLs.add("http://hd.wallpaperswide.com/thumbs/iron_man_helmet-t2.jpg");
+            imgURLs.add("https://vignette3.wikia.nocookie.net/marvelcinematicuniverse/images/4/44/AoU_Hulkbuster_01.png/revision/latest/scale-to-width-down/2000?cb=20160502163433");
+            imgURLs.add("https://i.ytimg.com/vi/FAciZRkOKQs/maxresdefault.jpg");
+
 
             setupImageGrid(imgURLs);
         }
 
         private void setupImageGrid(ArrayList<String> imgURLs){
             GridView gridView = (GridView) findViewById(R.id.gridview);
+            int gridWidth = getResources().getDisplayMetrics().widthPixels;
+            int imagewidth = gridWidth/NUM_GRID_COLUMNS;
+            gridView.setColumnWidth(imagewidth);
 
             GridImageAdapter adapter =  new GridImageAdapter(mContext, R.layout.layout_grid_imageview,"",imgURLs);
             gridView.setAdapter(adapter);
