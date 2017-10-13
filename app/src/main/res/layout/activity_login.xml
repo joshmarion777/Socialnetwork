@@ -79,5 +79,6 @@
         android:layout_alignBottom="@+id/progessBar"
         android:layout_alignRight="@+id/progessBar"
         android:layout_alignLeft="@+id/progessBar"
+        android:id="@+id/pleasewait"
         />
 </RelativeLayout>
