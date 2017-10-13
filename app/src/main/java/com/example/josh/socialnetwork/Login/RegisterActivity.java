@@ -11,8 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.josh.socialnetwork.R;
+import com.example.josh.socialnetwork.Utils.FirebaseMethods;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -33,18 +35,47 @@ public class RegisterActivity extends AppCompatActivity {
     //FireBase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseMethods firebaseMethods;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        mContext = RegisterActivity.this;
+        firebaseMethods = new FirebaseMethods(mContext);
         Log.d(TAG, "onCreate: started");
 
         initwidgets();
         setupFirebaseAuth();
+        init();
     }
 
+    private void init(){
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                email = mEmail.getText().toString();
+                username = mUsername.getText().toString();
+                password = mPassword.getText().toString();
+
+                if(checkInputs(email,username,password)){
+                    mProgressBar.setVisibility(View.VISIBLE);
+                    loadingPleasewait.setVisibility(View.VISIBLE);
+
+                }
+            }
+        });
+    }
+
+    private boolean checkInputs(String email, String username, String password){
+        Log.d(TAG, "checkInputs: checking inputs for null values");
+        if (email.equals("") || username.equals("")|| password.equals("")){
+            Toast.makeText(mContext, "All Fields must be filled out", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
     /**
      * Initialize the Activity Widgets
      */
@@ -53,6 +84,8 @@ public class RegisterActivity extends AppCompatActivity {
         mProgressBar = (ProgressBar) findViewById(R.id.progessBar);
         loadingPleasewait = (TextView) findViewById(R.id.loadingPleasewait);
         mEmail = (EditText) findViewById(R.id.input_email);
+        mUsername = (EditText) findViewById(R.id.input_username);
+        btnRegister = (Button) findViewById(R.id.btn_signup);
         mPassword = (EditText) findViewById(R.id.input_password);
         mContext = RegisterActivity.this;
         mProgressBar.setVisibility(View.GONE);
