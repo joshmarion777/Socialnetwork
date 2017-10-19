@@ -6,10 +6,12 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.josh.socialnetwork.R;
+import com.example.josh.socialnetwork.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
 
 /**
  * Created by JOSH on 13-10-2017.
@@ -32,6 +34,22 @@ public class FirebaseMethods {
         if(mAuth.getCurrentUser() != null){
             userID = mAuth.getCurrentUser().getUid();
         }
+    }
+
+    public boolean checkifUsernameExists(String username, DataSnapshot dataSnapshot){
+        Log.d(TAG, "checkifUsernameExists: checking if " + username + "already exists");
+
+        User user  = new User();
+        for(DataSnapshot ds : dataSnapshot.getChildren()){
+            Log.d(TAG, "checkifUsernameExists: datasnalshot:" + ds);
+            user.setUsername(ds.getValue(User.class).getUsername());
+            Log.d(TAG, "checkifUsernameExists: username:" + user.getUsername());
+            if(StringManipulation.expandUsername(user.getUsername()).equals(username)){
+                Log.d(TAG, "checkifUsernameExists: FOUND A MATCH:" + user.getUsername());
+                return true;
+            }
+        }
+        return true;
     }
 
     /**

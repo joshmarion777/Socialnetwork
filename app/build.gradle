@@ -1,15 +1,20 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.1 "
     defaultConfig {
         applicationId "com.example.josh.socialnetwork"
         minSdkVersion 21
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    repositories{
+        maven {url "https://maven.google.com"}
+        maven { url "https://jitpack.io"}
+        mavenCentral()
     }
     buildTypes {
         release {
@@ -20,25 +25,27 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:appcompat-v7:26.0.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
-
     //UI dependency for coordinator layout
-    compile 'com.android.support:design:25.3.1'
-
+    compile 'com.android.support:design:26.0.1'
     //Bottom navigation external library
-    compile 'com.github.ittianyu:BottomNavigationViewEx:1.2.1'
+    compile 'com.github.ittianyu:BottomNavigationViewEx:1.2.3'
     //Circle Profile picture external library
     compile 'de.hdodenhof:circleimageview:2.1.0'
     // Universal Image Loader
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     //FireBase Auhentication
-    compile 'com.google.firebase:firebase-auth:10.2.6'
+    compile 'com.google.firebase:firebase-auth:11.4.2'
+    //FireBase Firestore
+    compile 'com.google.firebase:firebase-firestore:11.4.2'
+    //Firebase Database
+    compile 'com.google.firebase:firebase-database:11.4.2'
 }
 
 //FireBase
