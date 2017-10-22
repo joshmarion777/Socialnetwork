@@ -8,5 +8,6 @@
     <string name="auth_failed">Failed to Authenticate</string>
     <string name="auth_success">Authentication Success</string>
 
-
+    <string name="dbname_users">users</string>
+    <string name="dbname_user_account_settings">user_account_sttings</string>
 </resources>

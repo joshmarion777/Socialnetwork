@@ -72,6 +72,7 @@ public class RegisterActivity extends AppCompatActivity {
                     mProgressBar.setVisibility(View.VISIBLE);
                     loadingPleasewait.setVisibility(View.VISIBLE);
 
+                    firebaseMethods.registerNewEmail(email, password, username);
                 }
             }
         });
@@ -144,8 +145,11 @@ public class RegisterActivity extends AppCompatActivity {
                             }
                             username = username + append;
                             //add new users to the database
+                            firebaseMethods.addNewUser(email, username, "", "", "");
 
+                            Toast.makeText(mContext, "Signup Successful. Sending verification email.", Toast.LENGTH_SHORT).show();
 
+                            mAuth.signOut();
                         }
 
                         @Override
@@ -153,6 +157,8 @@ public class RegisterActivity extends AppCompatActivity {
 
                         }
                     });
+
+                    finish();
 
                 } else {
                     // User is signed out

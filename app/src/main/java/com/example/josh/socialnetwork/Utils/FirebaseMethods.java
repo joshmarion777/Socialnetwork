@@ -7,11 +7,15 @@ import android.widget.Toast;
 
 import com.example.josh.socialnetwork.R;
 import com.example.josh.socialnetwork.models.User;
+import com.example.josh.socialnetwork.models.UserAccountSettings;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * Created by JOSH on 13-10-2017.
@@ -23,6 +27,9 @@ public class FirebaseMethods {
     //FireBase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseDatabase mFirebasedatabase;
+    private DatabaseReference myRef;
+
     private String userID;
 
     private Context mContext;
@@ -30,6 +37,8 @@ public class FirebaseMethods {
     public FirebaseMethods(Context context){
         mAuth = FirebaseAuth.getInstance();
         mContext = context;
+        mFirebasedatabase = FirebaseDatabase.getInstance();
+        myRef = mFirebasedatabase.getReference();
 
         if(mAuth.getCurrentUser() != null){
             userID = mAuth.getCurrentUser().getUid();
@@ -40,7 +49,7 @@ public class FirebaseMethods {
         Log.d(TAG, "checkifUsernameExists: checking if " + username + "already exists");
 
         User user  = new User();
-        for(DataSnapshot ds : dataSnapshot.getChildren()){
+        for(DataSnapshot ds : dataSnapshot.child(userID).getChildren()){
             Log.d(TAG, "checkifUsernameExists: datasnalshot:" + ds);
             user.setUsername(ds.getValue(User.class).getUsername());
             Log.d(TAG, "checkifUsernameExists: username:" + user.getUsername());
@@ -58,7 +67,7 @@ public class FirebaseMethods {
      * @param password
      * @param username
      */
-    public void registerNewEmail(final String email, String password, final String username){
+    public void  registerNewEmail(final String email, String password, final String username){
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
                     @Override
@@ -74,11 +83,58 @@ public class FirebaseMethods {
                         }
 
                         else if(task.isSuccessful()){
+                            //send verification email
+                            sendVerificationEmail();
+
                             userID = mAuth.getCurrentUser().getUid();
                             Log.d(TAG, "onComplete: Authenticate changed:" + userID);
                         }
                         // ...
                     }
                 });
+    }
+
+    public void sendVerificationEmail(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if(user != null){
+            user.sendEmailVerification()
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){}
+                            else {
+                                Toast.makeText(mContext,"couldn't send verification email.",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    })
+        }
+    }
+    /**
+     * Add a information to the users nodes
+     * Add information to the user_account_settings
+     * @param email
+     * @param username
+     * @param description
+     * @param website
+     * @param profile_photo
+     */
+    public void addNewUser(String email, String username, String description, String website, String profile_photo){
+
+        User user = new User( userID, 1, email,StringManipulation.condenseUsername(username));
+
+        myRef.child(mContext.getString(R.string.dbname_users))
+                .child(userID)
+                .setValue(user);
+
+        UserAccountSettings settings  = new UserAccountSettings(
+                description, username, 0, 0, 0, profile_photo, username, website
+        );
+
+        myRef.child(mContext.getString(R.string.dbname_user_account_settings))
+                .child(userID)
+                .setValue(settings);
+
+
     }
 }
