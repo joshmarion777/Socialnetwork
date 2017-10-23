@@ -1,26 +1,15 @@
 package com.example.josh.socialnetwork.Profile;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.example.josh.socialnetwork.R;
-import com.example.josh.socialnetwork.Utils.BottomNavigationViewHelper;
-import com.example.josh.socialnetwork.Utils.GridImageAdapter;
-import com.example.josh.socialnetwork.Utils.UniversalImageLoader;
-import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
-
-import java.util.ArrayList;
 
 /**
  * Created by JOSH on 04-10-2017.
@@ -43,17 +32,26 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        init();
 
-        setupBottomNavigationView();
-
-        setupToolBar();
-        setupActivityWidget();
-        setProfileImage();
-
-        tempGridSetup();
+//        setupBottomNavigationView();
+//
+//        setupToolBar();
+//        setupActivityWidget();
+//        setProfileImage();
+//
+//        tempGridSetup();
 
     }
-        private void tempGridSetup(){
+    private void init(){
+        Log.d(TAG, "init: inflating" + getString(R.string.profile_fragment));
+
+        ProfileFragment fragment = new ProfileFragment();
+        FragmentTransaction transaction = ProfileActivity.this.getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.profile_container, fragment);
+        transaction.addToBackStack(getString(R.string.profile_fragment));
+    }
+       /* private void tempGridSetup(){
             ArrayList<String> imgURLs = new ArrayList<>();
 
             imgURLs.add("https://www.w3schools.com/css/img_fjords.jpg");
@@ -92,9 +90,9 @@ public class ProfileActivity extends AppCompatActivity {
 
             profilePhoto = (ImageView) findViewById(R.id.profile_photo);
         }
-    /**
+    *//**
      * This the top toolbar for the profile and the account settings
-     */
+     *//*
 
     private void setupToolBar(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.profileToolBar);
@@ -111,9 +109,9 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    /**
+    *//**
      * Copied from the Home Activity so that we could use here
-     */
+     *//*
     private void setupBottomNavigationView(){
         Log.d(TAG, "setupBottomNavigationView: setting the bottom navigation view");
         BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
@@ -124,6 +122,6 @@ public class ProfileActivity extends AppCompatActivity {
         menuItem.setChecked(true);
 
     }
-
+*/
 
 }
