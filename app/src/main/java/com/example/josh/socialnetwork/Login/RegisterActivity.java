@@ -91,7 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
      */
     private void initwidgets(){
         Log.d(TAG, "initwidgets: initializing widgets");
-        mProgressBar = (ProgressBar) findViewById(R.id.progessBar);
+        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         loadingPleasewait = (TextView) findViewById(R.id.loadingPleasewait);
         mEmail = (EditText) findViewById(R.id.input_email);
         mUsername = (EditText) findViewById(R.id.input_username);

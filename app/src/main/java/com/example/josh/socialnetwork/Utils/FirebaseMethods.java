@@ -107,7 +107,7 @@ public class FirebaseMethods {
                                 Toast.makeText(mContext,"couldn't send verification email.",Toast.LENGTH_SHORT).show();
                             }
                         }
-                    })
+                    });
         }
     }
     /**
