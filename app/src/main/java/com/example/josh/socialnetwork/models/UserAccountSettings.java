@@ -15,8 +15,8 @@ public class UserAccountSettings {
     private String username;
     private String website;
 
-    public UserAccountSettings(String display_name, String description, long followers,
-                               long posts, long following, String profile_photo, String username, String website) {
+    public UserAccountSettings(String description, String display_name, long followers, long following,
+                               long posts, String profile_photo, String username, String website) {
         this.display_name = display_name;
         this.description = description;
         this.followers = followers;
