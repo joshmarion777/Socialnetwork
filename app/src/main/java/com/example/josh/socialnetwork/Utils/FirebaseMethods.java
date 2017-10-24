@@ -84,6 +84,7 @@ public class FirebaseMethods {
                         }
 
                         else if(task.isSuccessful()){
+                            Log.d(TAG, "onComplete: Sending email...");
                             //send verification email
                             sendVerificationEmail();
 
@@ -103,7 +104,10 @@ public class FirebaseMethods {
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){}
+                            if(task.isSuccessful()){
+
+                                Log.d(TAG, "onComplete: sendEmailVerification: Email sent");
+                            }
                             else {
                                 Toast.makeText(mContext,"couldn't send verification email.",Toast.LENGTH_SHORT).show();
                             }
@@ -152,7 +156,7 @@ public class FirebaseMethods {
      * @param dataSnapshot
      * @return
      */
-    private UserSettings getUsersettings(DataSnapshot dataSnapshot){
+    public UserSettings getUserSettings(DataSnapshot dataSnapshot){
         Log.d(TAG, "getUserAccountsettings: retriving the user account settings");
 
         UserAccountSettings settings =  new UserAccountSettings();

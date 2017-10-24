@@ -1,6 +1,7 @@
 package com.example.josh.socialnetwork.Profile;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -48,6 +49,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
         setupSettingsList();
         setupBottomNavigationView();
         setupFragments();
+        getIncomingIntent();
 
         //setup back arrow for navigating back to "Profile Activity"
         ImageView backarrow = (ImageView) findViewById(R.id.backArrow);
@@ -58,6 +60,15 @@ public class AccountSettingsActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void getIncomingIntent(){
+        Intent intent = getIntent();
+
+        if(intent.hasExtra(getString(R.string.calling_activity))){
+            Log.d(TAG, "getIncomingIntent: Revcieved incoming Intent from " + getString(R.string.profile_activity) );
+            setViewPager(pagerAdapter.getFragmentName(getString(R.string.edit_profile_fragment)));
+        }
     }
 
     private void setupFragments(){

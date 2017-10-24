@@ -21,8 +21,8 @@ import android.widget.TextView;
 import com.example.josh.socialnetwork.Login.LoginActivity;
 import com.example.josh.socialnetwork.R;
 import com.example.josh.socialnetwork.Utils.BottomNavigationViewHelper;
+import com.example.josh.socialnetwork.Utils.FirebaseMethods;
 import com.example.josh.socialnetwork.Utils.UniversalImageLoader;
-import com.example.josh.socialnetwork.models.User;
 import com.example.josh.socialnetwork.models.UserAccountSettings;
 import com.example.josh.socialnetwork.models.UserSettings;
 import com.google.firebase.auth.FirebaseAuth;
@@ -60,12 +60,14 @@ public class ProfileFragment extends Fragment {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference myRef;
+    private FirebaseMethods mFirebaseMethods;
 
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view  = inflater.inflate(R.layout.fragment_profile,container, false);
+
         mDisplayName = (TextView) view.findViewById(R.id.display_name);
         mUsername = (TextView) view.findViewById(R.id.username);
         mWebsite = (TextView) view.findViewById(R.id.website);
@@ -73,17 +75,32 @@ public class ProfileFragment extends Fragment {
         mProfilePhoto = (CircleImageView) view.findViewById(R.id.profile_photo);
         mPosts = (TextView) view.findViewById(R.id.tvPosts);
         mFollowers = (TextView) view.findViewById(R.id.tvFollowers);
-        mFollowing = (TextView) view.findViewById(R.id.tvFollowers);
+        mFollowing = (TextView) view.findViewById(R.id.tvFollowing);
         mProgressBar = (ProgressBar) view.findViewById(R.id.profileProgressBar);
         gridview = (GridView) view.findViewById(R.id.gridview);
         toolbar = (Toolbar) view.findViewById(R.id.profileToolBar);
         profileMenu = (ImageView) view.findViewById(R.id.profileMenu);
         bottomNavigationView = (BottomNavigationViewEx) view.findViewById(R.id.bottomNavViewBar);
         mContext = getActivity();
+        mFirebaseMethods = new FirebaseMethods(getActivity());
         Log.d(TAG, "onCreateView: started ");
 
         setupBottomNavigationView();
+        setupToolBar();
 
+        setupFirebaseAuth();
+
+        TextView  editProfile  = (TextView) view.findViewById(R.id.textEditProfile);
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: navigating to " + mContext.getString(R.string.edit_profile_fragment));
+
+                Intent intent = new Intent(getActivity(), AccountSettingsActivity.class);
+                intent.putExtra(getString(R.string.calling_activity), getString(R.string.profile_activity));
+                startActivity(intent);
+            }
+        });
 
         return view;
     }
@@ -91,7 +108,7 @@ public class ProfileFragment extends Fragment {
     private void  setProfileWidgets(UserSettings userSettings){
         Log.d(TAG, "setProfileWidgets: setting widgets from data retriving from Firebse " + userSettings.toString());
 
-        User user =  userSettings.getUser();
+        //User user =  userSettings.getUser();
         UserAccountSettings settings = userSettings.getSettings();
 
         UniversalImageLoader.setImage(settings.getProfile_photo(), mProfilePhoto, null, "");
@@ -102,6 +119,9 @@ public class ProfileFragment extends Fragment {
         mDescription.setText(settings.getDescription());
         mPosts.setText(String.valueOf(settings.getPosts()));
         mFollowers.setText(String.valueOf(settings.getFollowers()));
+        mFollowing.setText(String.valueOf(settings.getFollowing()));
+        mProgressBar.setVisibility(View.GONE);
+
     }
 
     private void setupBottomNavigationView(){
@@ -177,6 +197,7 @@ public class ProfileFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 //retrive user info from database
+              setProfileWidgets(mFirebaseMethods.getUserSettings(dataSnapshot));
 
                 //retrive image from the database
 

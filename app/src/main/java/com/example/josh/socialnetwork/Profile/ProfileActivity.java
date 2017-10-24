@@ -50,6 +50,7 @@ public class ProfileActivity extends AppCompatActivity {
         FragmentTransaction transaction = ProfileActivity.this.getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.profile_container, fragment);
         transaction.addToBackStack(getString(R.string.profile_fragment));
+        transaction.commit();
     }
        /* private void tempGridSetup(){
             ArrayList<String> imgURLs = new ArrayList<>();
