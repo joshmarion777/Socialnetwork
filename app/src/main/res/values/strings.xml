@@ -10,7 +10,9 @@
     <string name="auth_failed">Failed to Authenticate</string>
     <string name="auth_success">Authentication Success</string>
 
+    <!--Database field names-->
     <string name="dbname_users">users</string>
+    <string name="field_username">username</string>
     <string name="dbname_user_account_settings">user_account_settings</string>
 
     <!-- Intent Extras-->
@@ -18,5 +20,5 @@
 
     <!-- Activity Names -->
     <string name="profile_activity">Profile Activity</string>
-
+    <!--Database field names-->
 </resources>
