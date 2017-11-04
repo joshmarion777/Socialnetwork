@@ -35,14 +35,19 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by JOSH on 09-10-2017.
  */
 
-public class EditProfileFragment extends Fragment {
+public class EditProfileFragment extends Fragment implements ConfirmPasswordDialog.OnConfirmPasswordListener{
+
+    @Override
+    public void onConfirmPassword(String password) {
+        Log.d(TAG, "onConfirmPassword: got the password" + password);
+    }
+
     private static final String TAG = "EditProfileFragment";
 
     //Edit Profile Fragments Widgets
     private EditText mDisplayName, mUsername, mWebsite, mEmail, mPhoneNumber, mDescription;
     private TextView mChangeProfilePhoto;
     private CircleImageView mProfilePhoto;
-    private UserSettings mUserSettings;
 
     //FireBase
     private FirebaseAuth mAuth;
@@ -52,7 +57,8 @@ public class EditProfileFragment extends Fragment {
     private FirebaseMethods mFirebaseMethods;
     private String userID;
 
-    //va§risbles
+    //varisbles
+    private UserSettings mUserSettings;
 
 
     @Nullable
@@ -125,7 +131,7 @@ public class EditProfileFragment extends Fragment {
                     //              Confirm Email and Password
                     ConfirmPasswordDialog dialog =  new ConfirmPasswordDialog();
                     dialog.show(getFragmentManager(), getString(R.string.confirm_password_dialog));
-
+                    dialog.setTargetFragment(EditProfileFragment.this, 1);
                     //step 2: Check if email Already registered
                     //           - 'fetchProvidersforEmail(String Email)'
                     //step 3: Change the email
@@ -252,4 +258,6 @@ public class EditProfileFragment extends Fragment {
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
+
+
 }
