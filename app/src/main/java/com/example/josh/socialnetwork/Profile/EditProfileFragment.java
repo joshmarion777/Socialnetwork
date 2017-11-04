@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.josh.socialnetwork.R;
 import com.example.josh.socialnetwork.Utils.FirebaseMethods;
 import com.example.josh.socialnetwork.Utils.UniversalImageLoader;
+import com.example.josh.socialnetwork.dialogs.ConfirmPasswordDialog;
 import com.example.josh.socialnetwork.models.User;
 import com.example.josh.socialnetwork.models.UserAccountSettings;
 import com.example.josh.socialnetwork.models.UserSettings;
@@ -109,30 +110,31 @@ public class EditProfileFragment extends Fragment {
         final String username = mUsername.getText().toString();
         final String website = mWebsite.getText().toString();
         final String description = mDescription.getText().toString();
+        final String email = mEmail.getText().toString();
         final long phoneNumber = Long.parseLong(mPhoneNumber.getText().toString());
 
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
 
 
-                //case 1: not changing username
+                //case 1: if the user made change to  username
                 if (!mUserSettings.getUser().getUsername().equals(username)){
 
                     checkIfUsernameExists(username);
-                }//case 2: Changing username
-                else{
+                }//case 2: if the user made changes to email
+                if(!mUserSettings.getUser().getEmail().equals(email)){
+                    //step 1: Re-authenticate the user
+                    //              Confirm Email and Password
+                    ConfirmPasswordDialog dialog =  new ConfirmPasswordDialog();
+                    dialog.show(getFragmentManager(), getString(R.string.confirm_password_dialog));
 
+                    //step 2: Check if email Already registered
+                    //           - 'fetchProvidersforEmail(String Email)'
+                    //step 3: Change the email
+                    //           - submit the email to Firebase Authentication
                 }
                 //hence we need to check for uniqueness
             }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
-    }
 
     /**
      * Check if @param username is already in the database

@@ -5,6 +5,8 @@
     <string name="sign_out_fragment">Sign Out</string>
     <string name="profile_fragment">Profile</string>
 
+    <!-- Dialog Names-->
+    <string name="confirm_password_dialog">ConfirmPasswordDialog</string>
 
     <!-- FireBase Messages-->
     <string name="auth_failed">Failed to Authenticate</string>
@@ -20,5 +22,5 @@
 
     <!-- Activity Names -->
     <string name="profile_activity">Profile Activity</string>
-    <!--Database field names-->
+
 </resources>
