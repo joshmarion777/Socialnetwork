@@ -28,14 +28,14 @@
                     android:layout_centerHorizontal="true"
                     android:textColor="@color/link_blue"
                     android:textSize="16sp"
-                    android:id="@+id/ChangeProfilePhoto"/>
+                    android:id="@+id/changeProfilePhoto"/>
 
 
                 <!--username section-->
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_below="@+id/ChangeProfilePhoto"
+                    android:layout_below="@+id/changeProfilePhoto"
                     android:background="@drawable/grey_border_bottom"
                     android:id="@+id/relLayout1">
 

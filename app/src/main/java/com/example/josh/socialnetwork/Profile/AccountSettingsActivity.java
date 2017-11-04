@@ -18,7 +18,11 @@ import android.widget.RelativeLayout;
 
 import com.example.josh.socialnetwork.R;
 import com.example.josh.socialnetwork.Utils.BottomNavigationViewHelper;
+import com.example.josh.socialnetwork.Utils.FirebaseMethods;
 import com.example.josh.socialnetwork.Utils.SectionsStatePagerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.util.ArrayList;
@@ -36,6 +40,15 @@ public class AccountSettingsActivity extends AppCompatActivity {
     private SectionsStatePagerAdapter pagerAdapter;
     private ViewPager mViewPager ;
     private RelativeLayout mRelativeLayout;
+
+
+    //FireBase
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference myRef;
+    private FirebaseMethods mFirebaseMethods;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -117,4 +130,5 @@ public class AccountSettingsActivity extends AppCompatActivity {
         menuItem.setChecked(true);
 
     }
+
 }
