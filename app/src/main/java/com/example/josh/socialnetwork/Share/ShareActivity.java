@@ -5,15 +5,13 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.example.josh.socialnetwork.R;
-import com.example.josh.socialnetwork.Utils.BottomNavigationViewHelper;
 import com.example.josh.socialnetwork.Utils.Permissions;
-import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+import com.example.josh.socialnetwork.Utils.SectionsPagerAdapter;
 
 /**
  * Created by JOSH on 04-10-2017.
@@ -29,13 +27,15 @@ public class ShareActivity extends AppCompatActivity {
 
     private Context mContext = ShareActivity.this;
 
+    private ViewPager mViewPager;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_share);
 
         if(checkPermissionsArray(Permissions.PERMISSIONS)) {
-
+                setupViewPager();
         }
         else{
             verifyPermissions(Permissions.PERMISSIONS);
@@ -43,7 +43,7 @@ public class ShareActivity extends AppCompatActivity {
 
         }
 
-       //a setupBottomNavigationView();
+       //setupBottomNavigationView();
     }
 
     /**
@@ -63,6 +63,24 @@ public class ShareActivity extends AppCompatActivity {
         return true;
     }
 
+    public void setupViewPager(){
+        SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
+//        adapter.addFragment(new GalleryFragment());
+//        adapter.addFragment(new PhotoFragment());
+//        mViewPager =  findViewById(R.id.container);
+//        mViewPager.setAdapter(adapter);
+//
+//        TabLayout tabLayout =  findViewById(R.id.tabsBottom);
+//        tabLayout.setupWithViewPager(mViewPager);
+//
+//        tabLayout.getTabAt(0).setText(getString(R.string.gallery));
+//        tabLayout.getTabAt(1).setText(getString(R.string.photo));
+    }
+
+    /**
+     * Verify all the permissions passed to the array
+     * @param permissions
+     */
     public void verifyPermissions(String[] permissions){
         Log.d(TAG, "verifyPermissions: Verifying Permissions");
 
@@ -96,14 +114,14 @@ public class ShareActivity extends AppCompatActivity {
     /**
      * Copied from the Home Activity so that we could use here
      */
-    private void setupBottomNavigationView(){
-        Log.d(TAG, "setupBottomNavigationView: setting the bottom navigation view");
-        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
-        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
-        BottomNavigationViewHelper.enableNavigation(mContext, bottomNavigationViewEx);
-        Menu menu = bottomNavigationViewEx.getMenu();
-        MenuItem menuItem  = menu.getItem(ACTIVITY_NUM);
-        menuItem.setChecked(true);
-
-    }
+//    private void setupBottomNavigationView(){
+//        Log.d(TAG, "setupBottomNavigationView: setting the bottom navigation view");
+//        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
+//        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
+//        BottomNavigationViewHelper.enableNavigation(mContext, bottomNavigationViewEx);
+//        Menu menu = bottomNavigationViewEx.getMenu();
+//        MenuItem menuItem  = menu.getItem(ACTIVITY_NUM);
+//        menuItem.setChecked(true);
+//
+//    }
 }
