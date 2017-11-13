@@ -47,7 +47,7 @@ public class NextActivity extends AppCompatActivity {
 
         setupFirebaseAuth();
 
-        ImageView backArrow = findViewById(R.id.ivCloseShare);
+        ImageView backArrow = findViewById(R.id.ivBackArrow);
         // Used to Close Activity
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,15 +64,19 @@ public class NextActivity extends AppCompatActivity {
                 Log.d(TAG, "onClick: navigating to the final share screen.");
 
                 //upload the image to firebase
-                setImage();
+
             }
         });
+        setImage();
     }
+
+    private void
 
     /**
      * gets the image url from incoming intent and displays chosen image
      */
     private void setImage(){
+        Log.d(TAG, "setImage: started");
         Intent intent = getIntent();
         ImageView image = findViewById(R.id.imageshare);
         UniversalImageLoader.setImage(intent.getStringExtra(getString(R.string.selected_image)), image,null, mAppend );
