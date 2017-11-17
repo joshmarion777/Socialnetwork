@@ -46,6 +46,8 @@ dependencies {
     compile 'com.google.firebase:firebase-firestore:11.4.2'
     //Firebase Database
     compile 'com.google.firebase:firebase-database:11.4.2'
+    //FireBase Storage
+    compile 'com.google.firebase:firebase-storage:11.4.2'
 }
 
 //FireBase

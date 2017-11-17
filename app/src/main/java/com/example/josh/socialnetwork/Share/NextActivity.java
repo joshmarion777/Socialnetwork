@@ -30,7 +30,7 @@ public class NextActivity extends AppCompatActivity {
 
     //vars
     private  String mAppend = "file:/";
-
+    private int imageCount = 0;
     //FireBase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -44,6 +44,7 @@ public class NextActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_next);
+        mFirebaseMethods = new FirebaseMethods(NextActivity.this);
 
         setupFirebaseAuth();
 
@@ -70,7 +71,7 @@ public class NextActivity extends AppCompatActivity {
         setImage();
     }
 
-    private void
+
 
     /**
      * gets the image url from incoming intent and displays chosen image
@@ -118,7 +119,8 @@ public class NextActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-
+                imageCount = mFirebaseMethods.getImageCount(dataSnapshot);
+                Log.d(TAG, "onDataChange: imageCount: " + imageCount);
             }
 
             @Override
