@@ -81,6 +81,20 @@ public class NextActivity extends AppCompatActivity {
         setImage();
     }
 
+    private void ForUpoading() {
+        /**
+         *step 1:
+         create a data model for photos
+         step 2:
+         Add properties to the Photo Objects (caption, date, imgUrl,  photo_id, tags, user_id)
+         step 3:
+         Count the number of photos that the user already has
+         step 4:
+         a) Upload the photo to firebase storage
+         b) Insert into 'photos' node
+         c) Insert into 'user_photos' node
+         */
+        }
 
 
     /**
@@ -90,7 +104,8 @@ public class NextActivity extends AppCompatActivity {
         Log.d(TAG, "setImage: started");
         Intent intent = getIntent();
         ImageView image = findViewById(R.id.imageshare);
-        UniversalImageLoader.setImage(intent.getStringExtra(getString(R.string.selected_image)), image,null, mAppend );
+        imgUrl = intent.getStringExtra(getString(R.string.selected_image));
+        UniversalImageLoader.setImage(imgUrl, image, null, mAppend);
     }
 
         /*

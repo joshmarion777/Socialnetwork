@@ -148,6 +148,7 @@ public class GalleryFragment extends Fragment{
                 Log.d(TAG, "onItemClick: selected Image:" + imgURLs.get(position));
 
                 setImage(imgURLs.get(position), galleryImage, mAppend);
+                mSelectedImage = imgURLs.get(position);
             }
         });
 
