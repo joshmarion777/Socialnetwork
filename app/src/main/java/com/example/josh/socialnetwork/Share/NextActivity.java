@@ -7,8 +7,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.josh.socialnetwork.R;
 import com.example.josh.socialnetwork.Utils.FirebaseMethods;
@@ -31,6 +33,11 @@ public class NextActivity extends AppCompatActivity {
     //vars
     private  String mAppend = "file:/";
     private int imageCount = 0;
+    private String imgUrl;
+
+    //widgets
+    private EditText mCaption;
+
     //FireBase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -45,6 +52,7 @@ public class NextActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_next);
         mFirebaseMethods = new FirebaseMethods(NextActivity.this);
+        mCaption = findViewById(R.id.caption);
 
         setupFirebaseAuth();
 
@@ -65,7 +73,9 @@ public class NextActivity extends AppCompatActivity {
                 Log.d(TAG, "onClick: navigating to the final share screen.");
 
                 //upload the image to firebase
-
+                Toast.makeText(NextActivity.this, "Attempting to upload new photo", Toast.LENGTH_SHORT).show();
+                String caption = mCaption.getText().toString();
+                mFirebaseMethods.uploadNewPhoto(getString(R.string.new_photo), caption, imageCount, imgUrl);
             }
         });
         setImage();

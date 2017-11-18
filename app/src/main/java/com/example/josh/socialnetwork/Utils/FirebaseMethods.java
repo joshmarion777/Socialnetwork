@@ -17,6 +17,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 /**
  * Created by JOSH on 13-10-2017.
@@ -30,6 +32,7 @@ public class FirebaseMethods {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference myRef;
+    private StorageReference mStorageReference;
 
     private String userID;
 
@@ -40,9 +43,30 @@ public class FirebaseMethods {
         mContext = context;
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         myRef = mFirebaseDatabase.getReference();
+        mStorageReference = FirebaseStorage.getInstance().getReference();
 
         if(mAuth.getCurrentUser() != null){
             userID = mAuth.getCurrentUser().getUid();
+        }
+    }
+
+    public void uploadNewPhoto(String photoType, String caption, int count, String imgUrl){
+        Log.d(TAG, "uploadNewPhoto: attempting to upload new Photo");
+
+        FilePaths filePaths = new FilePaths();
+        //case 1: new photo
+        if(photoType.equals(mContext.getString(R.string.new_photo))){
+
+            Log.d(TAG, "uploadNewPhoto: uploading new photo");
+            String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+            StorageReference storageReference = mStorageReference
+                    .child(filePaths.FIREBASE_IMAGE_STORAGE + "/" + user_id + "/photo" + (count + 1));
+        }
+        //case 2: new profile photo
+        else if (photoType.equals(mContext.getString(R.string.profile_photo))){
+
+            Log.d(TAG, "uploadNewPhoto: uploading new PROFILE photo");
         }
     }
 
