@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.josh.socialnetwork.Home.HomeActivity;
+import com.example.josh.socialnetwork.Profile.AccountSettingsActivity;
 import com.example.josh.socialnetwork.R;
 import com.example.josh.socialnetwork.models.Photo;
 import com.example.josh.socialnetwork.models.User;
@@ -97,6 +98,7 @@ public class FirebaseMethods {
                     //navigate to the main feed  so the user can see their photo
                     Intent intent =  new Intent(mContext, HomeActivity.class);
                     mContext.startActivity(intent);
+
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -123,6 +125,11 @@ public class FirebaseMethods {
 
             Log.d(TAG, "uploadNewPhoto: uploading new PROFILE photo");
 
+            ((AccountSettingsActivity)mContext).setViewPager(
+                    ((AccountSettingsActivity)mContext).pagerAdapter
+                            .getFragmentName(mContext.getString(R.string.edit_profile_fragment))
+            );
+
             String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
             StorageReference storageReference = mStorageReference
@@ -144,6 +151,8 @@ public class FirebaseMethods {
 
                     //insert into 'user_account_settings' node
                     setProfilePhoto(firebaseURL.toString());
+
+
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
