@@ -1,12 +1,14 @@
 package com.example.josh.socialnetwork.Utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.josh.socialnetwork.Home.HomeActivity;
 import com.example.josh.socialnetwork.R;
 import com.example.josh.socialnetwork.models.Photo;
 import com.example.josh.socialnetwork.models.User;
@@ -93,6 +95,8 @@ public class FirebaseMethods {
                     addPhotoToDatabase(caption, firebaseURL.toString());
 
                     //navigate to the main feed  so the user can see their photo
+                    Intent intent =  new Intent(mContext, HomeActivity.class);
+                    mContext.startActivity(intent);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -118,6 +122,49 @@ public class FirebaseMethods {
         else if (photoType.equals(mContext.getString(R.string.profile_photo))){
 
             Log.d(TAG, "uploadNewPhoto: uploading new PROFILE photo");
+
+            String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+            StorageReference storageReference = mStorageReference
+                    .child(filePaths.FIREBASE_IMAGE_STORAGE + "/" + user_id + "/profile_photo");
+            //convert the image url to a bitmap
+            Bitmap bm = ImageManager.getBitmap(imgUrl);
+            byte[] bytes = ImageManager.getByteFromBitmap(bm, 100);
+
+            UploadTask uploadTask = null;
+            uploadTask = storageReference.putBytes(bytes);
+
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    Uri firebaseURL = taskSnapshot.getDownloadUrl();
+
+                    Toast.makeText(mContext, "photo upload success", Toast.LENGTH_SHORT).show();
+
+                    //insert into 'user_account_settings' node
+                    setProfilePhoto(firebaseURL.toString());
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d(TAG, "onFailure: Photo upload failed");
+                    Toast.makeText(mContext, "Photo upload failed", Toast.LENGTH_SHORT).show();
+
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                    double progress = (100 * taskSnapshot.getBytesTransferred())/ taskSnapshot.getTotalByteCount();
+
+                    if (progress - 15 > mPhotoUploadProgress){
+                        //Toast.makeText(mContext, "photo upload progress" + String.format("%.0f", progress + "%"), Toast.LENGTH_SHORT).show();
+                        mPhotoUploadProgress = progress;
+                    }
+                    Log.d(TAG, "onProgress: upload progress" + progress + "% done ");
+                }
+            });
         }
     }
 
@@ -126,6 +173,16 @@ public class FirebaseMethods {
         sdf.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
         return sdf.format(new Date());
 
+    }
+
+    private void  setProfilePhoto(String  url){
+
+        Log.d(TAG, "setProfilePhoto: setting new profile photo" + url);
+
+        myRef.child(mContext.getString(R.string.dbname_user_account_settings))
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child(mContext.getString(R.string.profile_photo))
+                .setValue(url);
     }
 
     private void addPhotoToDatabase (String caption, String url){
