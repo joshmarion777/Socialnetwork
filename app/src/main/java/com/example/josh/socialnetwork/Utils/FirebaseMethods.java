@@ -65,7 +65,7 @@ public class FirebaseMethods {
         }
     }
 
-    public void uploadNewPhoto(String photoType, final String caption,final int count, final String imgUrl){
+    public void uploadNewPhoto(String photoType, final String caption,final int count, final String imgUrl, Bitmap bm){
         Log.d(TAG, "uploadNewPhoto: attempting to upload new Photo");
 
         FilePaths filePaths = new FilePaths();
@@ -78,7 +78,9 @@ public class FirebaseMethods {
             StorageReference storageReference = mStorageReference
                     .child(filePaths.FIREBASE_IMAGE_STORAGE + "/" + user_id + "/photo" + (count + 1));
             //convert the image url to a bitmap
-            Bitmap bm = ImageManager.getBitmap(imgUrl);
+           if (bm == null){
+                bm = ImageManager.getBitmap(imgUrl);
+            }
             byte[] bytes = ImageManager.getByteFromBitmap(bm, 100);
 
             UploadTask uploadTask = null;
@@ -125,17 +127,15 @@ public class FirebaseMethods {
 
             Log.d(TAG, "uploadNewPhoto: uploading new PROFILE photo");
 
-            ((AccountSettingsActivity)mContext).setViewPager(
-                    ((AccountSettingsActivity)mContext).pagerAdapter
-                            .getFragmentName(mContext.getString(R.string.edit_profile_fragment))
-            );
 
             String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
             StorageReference storageReference = mStorageReference
                     .child(filePaths.FIREBASE_IMAGE_STORAGE + "/" + user_id + "/profile_photo");
             //convert the image url to a bitmap
-            Bitmap bm = ImageManager.getBitmap(imgUrl);
+            if (bm == null){
+                bm = ImageManager.getBitmap(imgUrl);
+            }
             byte[] bytes = ImageManager.getByteFromBitmap(bm, 100);
 
             UploadTask uploadTask = null;
@@ -152,6 +152,11 @@ public class FirebaseMethods {
                     //insert into 'user_account_settings' node
                     setProfilePhoto(firebaseURL.toString());
 
+
+                    ((AccountSettingsActivity)mContext).setViewPager(
+                            ((AccountSettingsActivity)mContext).pagerAdapter
+                                    .getFragmentName(mContext.getString(R.string.edit_profile_fragment))
+                    );
 
 
                 }
