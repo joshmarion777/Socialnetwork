@@ -9,10 +9,14 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.example.josh.socialnetwork.R;
+import com.example.josh.socialnetwork.Utils.BottomNavigationViewHelper;
 import com.example.josh.socialnetwork.Utils.Permissions;
 import com.example.josh.socialnetwork.Utils.SectionsPagerAdapter;
+import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 /**
  * Created by JOSH on 04-10-2017.
@@ -134,14 +138,14 @@ public class ShareActivity extends AppCompatActivity {
     /**
      * Copied from the Home Activity so that we could use here
      */
-//    private void setupBottomNavigationView(){
-//        Log.d(TAG, "setupBottomNavigationView: setting the bottom navigation view");
-//        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
-//        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
-//        BottomNavigationViewHelper.enableNavigation(mContext, bottomNavigationViewEx);
-//        Menu menu = bottomNavigationViewEx.getMenu();
-//        MenuItem menuItem  = menu.getItem(ACTIVITY_NUM);
-//        menuItem.setChecked(true);
-//
-//    }
+    private void setupBottomNavigationView(){
+        Log.d(TAG, "setupBottomNavigationView: setting the bottom navigation view");
+        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
+        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
+        BottomNavigationViewHelper.enableNavigation(mContext,this, bottomNavigationViewEx);
+        Menu menu = bottomNavigationViewEx.getMenu();
+        MenuItem menuItem  = menu.getItem(ACTIVITY_NUM);
+        menuItem.setChecked(true);
+
+    }
 }
