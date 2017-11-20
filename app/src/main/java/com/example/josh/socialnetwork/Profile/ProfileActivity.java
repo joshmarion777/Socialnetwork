@@ -91,7 +91,8 @@ public class ProfileActivity extends AppCompatActivity {
 
             profilePhoto = (ImageView) findViewById(R.id.profile_photo);
         }
-    *//**
+    */
+    /**
      * This the top toolbar for the profile and the account settings
      *//*
 
