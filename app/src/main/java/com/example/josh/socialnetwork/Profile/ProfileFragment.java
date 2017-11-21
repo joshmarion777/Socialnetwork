@@ -196,6 +196,9 @@ public class ProfileFragment extends Fragment {
 
     }
 
+    /**
+     * Bottom Navigation Setup
+     */
     private void setupBottomNavigationView(){
         Log.d(TAG, "setupBottomNavigationView: setting the bottom navigation view");
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationView);
@@ -203,7 +206,6 @@ public class ProfileFragment extends Fragment {
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem  = menu.getItem(ACTIVITY_NUM);
         menuItem.setChecked(true);
-
     }
 
     private void setupToolBar(){
