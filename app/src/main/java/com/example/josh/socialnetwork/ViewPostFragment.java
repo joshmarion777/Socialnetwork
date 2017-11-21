@@ -18,6 +18,13 @@ import com.example.josh.socialnetwork.Utils.UniversalImageLoader;
 import com.example.josh.socialnetwork.models.Photo;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+
 /**
  * Created by jbghostman on 21/11/17.
  */
@@ -68,8 +75,44 @@ public class ViewPostFragment extends Fragment {
         }
 
         setupBottomNavigationView();
+        setupWidgets();
 
         return view;
+    }
+
+    private void setupWidgets(){
+        String timeStampDiff = getTimestampDifference();
+        if (!timeStampDiff.equals("0")){
+            mTimestamp.setText(timeStampDiff + " DAYS AGO");
+        }else{
+            mTimestamp.setText("TODAY");
+        }
+    }
+
+    /**
+     * Returns a String the number of days ago the post was made
+     * @return
+     */
+    private  String getTimestampDifference(){
+        Log.d(TAG, "getTimestampDifference: getting timestamp difference");
+
+        String difference = " ";
+        Calendar c =Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US);
+        sdf.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta")); //googled it... 'Android list of timeZones'
+        Date timestamp;
+        Date today = c.getTime();
+        sdf.format(today);
+        final String photoTimestamp = mPhoto.getDate_created();
+        try{
+            timestamp = sdf.parse(photoTimestamp);
+            difference = String.valueOf(Math.round(((today.getTime() - timestamp.getTime())/ 1000 / 60 / 60 / 24 ) ));
+        }catch (ParseException e){
+            Log.e(TAG, "getTimestampDifference: ParseException :  " + e.getMessage() );
+            difference = "0";
+        }
+
+        return difference;
     }
 
     /**
