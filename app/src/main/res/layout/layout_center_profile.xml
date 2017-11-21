@@ -36,18 +36,22 @@
                             android:layout_height="80dp"
                             android:id="@+id/profile_photo"
                             app:civ_border_color="@color/black"
-                            app:civ_border_width="2dp"
+                            app:civ_border_width="0.5dp"
                             android:layout_centerVertical="true"/>
 
                     </RelativeLayout>
+
                     <RelativeLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="75"
                         android:layout_marginStart="30dp"
                         android:layout_marginEnd="30dp" >
+
                         <include layout="@layout/snippet_top_profile"/>
+
                     </RelativeLayout>
+
                 </LinearLayout>
 
                 <LinearLayout

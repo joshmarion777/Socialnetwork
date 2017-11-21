@@ -16,7 +16,7 @@
                 android:layout_height="50dp"
                 android:id="@+id/relLayout1">
 
-                <android.support.v4.widget.CircleImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:id="@+id/profile_photo"
@@ -48,12 +48,14 @@
                 android:id="@+id/ivEllipses"/>
 
             </RelativeLayout>
+
             <com.example.josh.socialnetwork.Utils.SquareImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/post_image"
                 android:layout_below="@id/relLayout1"
                 android:scaleType="centerCrop"/>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
