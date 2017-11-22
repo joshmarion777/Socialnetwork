@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.example.josh.socialnetwork.R;
-import com.example.josh.socialnetwork.ViewPostFragment;
+import com.example.josh.socialnetwork.Utils.ViewPostFragment;
 import com.example.josh.socialnetwork.models.Photo;
 
 /**

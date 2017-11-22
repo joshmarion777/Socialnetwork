@@ -1,22 +1,21 @@
-package com.example.josh.socialnetwork;
+package com.example.josh.socialnetwork.Utils;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.josh.socialnetwork.Utils.BottomNavigationViewHelper;
-import com.example.josh.socialnetwork.Utils.FirebaseMethods;
-import com.example.josh.socialnetwork.Utils.SquareImageView;
-import com.example.josh.socialnetwork.Utils.UniversalImageLoader;
+import com.example.josh.socialnetwork.R;
 import com.example.josh.socialnetwork.models.Photo;
 import com.example.josh.socialnetwork.models.UserAccountSettings;
 import com.google.firebase.auth.FirebaseAuth;
@@ -67,6 +66,7 @@ public class ViewPostFragment extends Fragment {
     private String photoUsername =" ";
     private String photoUrl = " ";
     private UserAccountSettings mUserAccountSettings;
+    private GestureDetector mGestureDetector;
 
     @Nullable
     @Override
@@ -85,6 +85,7 @@ public class ViewPostFragment extends Fragment {
         mHeartWhite = view.findViewById(R.id.image_heart);
         mProfileImage = view.findViewById(R.id.profile_photo);
 
+        mGestureDetector = new GestureDetector(getActivity(), new GestureListener());
         try{
             mPhoto = getPhotoFromBundle();
             mActivityNumber = getActivityNumFromBundle();
@@ -100,9 +101,34 @@ public class ViewPostFragment extends Fragment {
         getPhotoDetails();
         //setupWidgets();
 
-
+        testToggle();
 
         return view;
+    }
+    private void testToggle(){
+        mHeartRed.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return mGestureDetector.onTouchEvent(motionEvent);
+            }
+        });
+        mHeartWhite.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return mGestureDetector.onTouchEvent(motionEvent);
+            }
+        });
+    }
+    public class GestureListener extends  GestureDetector.SimpleOnGestureListener{
+        @Override
+        public boolean onDown(MotionEvent e) {
+            return super.onDown(e);
+        }
+
+        @Override
+        public boolean onDoubleTap(MotionEvent e) {
+            return super.onDoubleTap(e);
+        }
     }
     private void getPhotoDetails(){
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
