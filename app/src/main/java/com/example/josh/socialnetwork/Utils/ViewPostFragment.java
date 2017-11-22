@@ -67,6 +67,7 @@ public class ViewPostFragment extends Fragment {
     private String photoUrl = " ";
     private UserAccountSettings mUserAccountSettings;
     private GestureDetector mGestureDetector;
+    private Heart mHeart;
 
     @Nullable
     @Override
@@ -85,6 +86,9 @@ public class ViewPostFragment extends Fragment {
         mHeartWhite = view.findViewById(R.id.image_heart);
         mProfileImage = view.findViewById(R.id.profile_photo);
 
+        mHeartRed.setVisibility(View.GONE);
+        mHeartWhite.setVisibility(View.VISIBLE);
+        mHeart = new Heart(mHeartWhite, mHeartRed);
         mGestureDetector = new GestureDetector(getActivity(), new GestureListener());
         try{
             mPhoto = getPhotoFromBundle();
@@ -109,12 +113,14 @@ public class ViewPostFragment extends Fragment {
         mHeartRed.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
+                Log.d(TAG, "onTouch: red heart touch detected");
                 return mGestureDetector.onTouchEvent(motionEvent);
             }
         });
         mHeartWhite.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
+                Log.d(TAG, "onTouch: white heart touch detected");
                 return mGestureDetector.onTouchEvent(motionEvent);
             }
         });
@@ -122,12 +128,15 @@ public class ViewPostFragment extends Fragment {
     public class GestureListener extends  GestureDetector.SimpleOnGestureListener{
         @Override
         public boolean onDown(MotionEvent e) {
-            return super.onDown(e);
+            return true;
         }
 
         @Override
         public boolean onDoubleTap(MotionEvent e) {
-            return super.onDoubleTap(e);
+
+            Log.d(TAG, "onDoubleTap: Double tap detected");
+            mHeart.toggleLike();
+            return true;
         }
     }
     private void getPhotoDetails(){
