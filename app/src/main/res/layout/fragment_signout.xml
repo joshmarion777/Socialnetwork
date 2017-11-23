@@ -21,26 +21,25 @@
             android:text="Sign Out"
             android:layout_centerHorizontal="true"
             android:textSize="20sp"
+            android:layout_below="@id/tvconfirmSignout"
             android:id="@+id/btnConfirmSignout"
-            android:layout_below="@+id/tvconfigSignout"
             android:background="@drawable/white_rounded_button"
             android:layout_marginTop="20dp"/>
 
     </RelativeLayout>
 
     <ProgressBar
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_centerInParent="true"
         android:id="@+id/progressBar"/>
+
     <TextView
+        android:id="@+id/tvsigningOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/progressBar"
+        android:layout_centerHorizontal="true"
         android:text="Signing out..."
-        android:layout_alignBottom="@+id/progressBar"
-        android:layout_alignRight="@+id/progressBar"
-        android:layout_alignLeft="@+id/progressBar"
-        android:textColor="@color/black"
-        android:id="@+id/tvsigningOut"
-        />
+        android:textColor="@color/black" />
 </RelativeLayout>
