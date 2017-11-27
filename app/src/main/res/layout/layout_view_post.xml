@@ -69,23 +69,32 @@
                     android:id="@+id/heartLayout"
                     android:background="@color/white">
 
-                    <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:id="@+id/image_heart_red"
-                        android:layout_centerInParent="true"
-                        android:layout_marginLeft="20dp"
-                        android:src="@drawable/vector_heart_red"
-                        android:visibility="invisible"/>
+                    <!--<ImageView-->
+                        <!--android:layout_width="35dp"-->
+                        <!--android:layout_height="35dp"-->
+                        <!--android:id="@+id/image_heart_red"-->
+                        <!--android:layout_centerInParent="true"-->
+                        <!--android:layout_marginLeft="20dp"-->
+                        <!--android:src="@drawable/vector_heart_red"-->
+                        <!--android:visibility="invisible"/>-->
 
-                    <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:id="@+id/image_heart"
+                    <!--<ImageView-->
+                        <!--android:layout_width="35dp"-->
+                        <!--android:layout_height="35dp"-->
+                        <!--android:id="@+id/image_heart"-->
+                        <!--android:layout_centerInParent="true"-->
+                        <!--android:layout_marginLeft="20dp"-->
+                        <!--android:src="@drawable/vector_heart_white"-->
+                        <!--android:visibility="visible"/>-->
+
+                    <com.like.LikeButton
+                        app:icon_type="heart"
+                        app:icon_size="25dp"
+                        android:id="@+id/like_button"
                         android:layout_centerInParent="true"
                         android:layout_marginLeft="20dp"
-                        android:src="@drawable/vector_heart_white"
-                        android:visibility="visible"/>
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"/>
 
 
                 </RelativeLayout>
