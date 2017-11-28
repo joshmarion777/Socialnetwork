@@ -12,7 +12,15 @@ import android.widget.TextView;
 
 import com.example.josh.socialnetwork.R;
 import com.example.josh.socialnetwork.models.Comment;
+import com.example.josh.socialnetwork.models.UserAccountSettings;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.like.LikeButton;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -85,7 +93,33 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
             holder.timestamp.setText("today");
         }
 
-        //set the username
+        //set the username and profile image
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        Query query = reference
+                .child(mContext.getString(R.string.dbname_user_account_settings))
+                .orderByChild(mContext.getString(R.string.field_user_id))
+                .equalTo(getItem(position).getUser_id());
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
+
+                    holder.username.setText(singleSnapshot.getValue(UserAccountSettings.class).getUsername());
+
+                    ImageLoader imageLoader = ImageLoader.getInstance();
+
+                    imageLoader.displayImage(singleSnapshot.getValue(UserAccountSettings.class).getProfile_photo(),
+                            holder.profielImage);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(TAG, "onCancelled: query Cancelled");
+            }
+        });
 
 
         return convertView;

@@ -1,5 +1,6 @@
 package com.example.josh.socialnetwork.Utils;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -44,10 +45,17 @@ import java.util.TimeZone;
 
 public class ViewPostFragment extends Fragment {
     private static final String TAG = "ViewPostFragment";
+
+    public interface OncommentThreadSelectedListener{
+        void onCommentThreadSelectedListener(Photo photo);
+    }
+    OncommentThreadSelectedListener mOncommentThreadSelectedListener;
+
     public ViewPostFragment(){
         super();
         setArguments(new Bundle());
     }
+
 
     //FireBase
     private FirebaseAuth mAuth;
@@ -60,7 +68,7 @@ public class ViewPostFragment extends Fragment {
     private SquareImageView mPostImage;
     private BottomNavigationViewEx bottomNavigationView;
     private TextView mBackLabel, mCaption, mUsername, mTimestamp, mLikes;
-    private ImageView mBackArrow, mEllipses, mHeartRed, mHeartWhite, mProfileImage;
+    private ImageView mBackArrow, mEllipses, mHeartRed, mHeartWhite, mProfileImage, mComment;
     public LikeButton likeButton;
 
     //vars
@@ -83,7 +91,7 @@ public class ViewPostFragment extends Fragment {
         mPostImage = view.findViewById(R.id.post_image);
         bottomNavigationView = view.findViewById(R.id.bottomNavViewBar);
         mBackArrow = view.findViewById(R.id.backArrow);
-        mCaption = view.findViewById(R.id.caption);
+        mCaption = view.findViewById(R.id.image_caption);
         mBackLabel = view.findViewById(R.id.tvBlackLabel);
         mUsername = view.findViewById(R.id.username);
         mTimestamp = view.findViewById(R.id.image_time_posted);
@@ -93,6 +101,7 @@ public class ViewPostFragment extends Fragment {
         mProfileImage = view.findViewById(R.id.profile_photo);
         mLikes = view.findViewById(R.id.image_likes);
         likeButton = view.findViewById(R.id.like_button);
+        mComment = view.findViewById(R.id.speech_bubble);
 
 
 //        mHeart = new Heart(mHeartWhite, mHeartRed);
@@ -116,6 +125,17 @@ public class ViewPostFragment extends Fragment {
 
 
         return view;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try{
+            mOncommentThreadSelectedListener = (OncommentThreadSelectedListener) getActivity();
+        }catch (ClassCastException e){
+            Log.e(TAG, "onAttach: ClassCastException: " + e.getMessage());
+        }
     }
 
     private void getLikesString(){
@@ -393,6 +413,23 @@ public class ViewPostFragment extends Fragment {
         UniversalImageLoader.setImage(mUserAccountSettings.getProfile_photo(),
                 mProfileImage, null, "");
         mLikes.setText(mLikesString);
+        mCaption.setText(mPhoto.getCaption());
+
+        mBackArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "onClick: navigating back...");
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
+
+        mComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "onClick: navigating back...");
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
 
 //        if (likeButton.isLiked()) {
 //            likeButton.setOnTouchListener(new View.OnTouchListener() {
@@ -412,7 +449,6 @@ public class ViewPostFragment extends Fragment {
 //            });
 //        }
 
-//       mCaption.setText(mPhoto.getCaption());
 
 
 
