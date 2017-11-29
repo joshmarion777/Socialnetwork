@@ -427,7 +427,8 @@ public class ViewPostFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "onClick: navigating back...");
-                getActivity().getSupportFragmentManager().popBackStack();
+
+                mOncommentThreadSelectedListener.onCommentThreadSelectedListener(mPhoto);
             }
         });
 

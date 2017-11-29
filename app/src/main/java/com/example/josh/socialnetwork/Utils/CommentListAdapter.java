@@ -73,6 +73,7 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
             holder.username = convertView.findViewById(R.id.comment_username);
             holder.timestamp = convertView.findViewById(R.id.comment_time_posted);
             holder.like = convertView.findViewById(R.id.comment_like);
+            holder.likes = convertView.findViewById(R.id.comment_likes);
             holder.profielImage = convertView.findViewById(R.id.comment_profile_image);
 
             convertView.setTag(holder);
@@ -120,6 +121,19 @@ public class CommentListAdapter extends ArrayAdapter<Comment> {
                 Log.d(TAG, "onCancelled: query Cancelled");
             }
         });
+
+        try{
+
+            if (position == 0){
+
+                holder.like.setVisibility(View.GONE);
+                holder.likes.setVisibility(View.GONE);
+                holder.reply.setVisibility(View.GONE);
+            }
+        }catch(NullPointerException e){
+            Log.e(TAG, "getView: NullPointerException: " + e.getMessage());
+        }
+
 
 
         return convertView;
