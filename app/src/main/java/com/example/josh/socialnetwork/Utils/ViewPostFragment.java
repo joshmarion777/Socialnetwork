@@ -115,12 +115,14 @@ public class ViewPostFragment extends Fragment {
             getLikesString();
 
 
+
         }catch (NullPointerException e){
             Log.e(TAG, "onCreateView: NullPointerException: photo was null from bundle"+  e.getMessage());
         }
 
         setupFirebaseAuth();
         setupBottomNavigationView();
+
 
 
 
@@ -270,6 +272,7 @@ public class ViewPostFragment extends Fragment {
 
                             likeButton.setLiked(false);
                             getLikesString();
+                            mLikedByCurrentUser = false;
 
                         }
 
@@ -375,6 +378,7 @@ public class ViewPostFragment extends Fragment {
 
         likeButton.setLiked(true);
         getLikesString();
+        mLikedByCurrentUser = true;
 
     }
 
@@ -390,7 +394,7 @@ public class ViewPostFragment extends Fragment {
                 for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
                     mUserAccountSettings = singleSnapshot.getValue(UserAccountSettings.class);
                 }
-               //setupWidgets();
+//               setupWidgets();
             }
 
             @Override
@@ -398,6 +402,8 @@ public class ViewPostFragment extends Fragment {
                 Log.d(TAG, "onCancelled: query Cancelled");
             }
         });
+
+
     }
 
     private void setupWidgets(){
@@ -432,23 +438,11 @@ public class ViewPostFragment extends Fragment {
             }
         });
 
-//        if (likeButton.isLiked()) {
-//            likeButton.setOnTouchListener(new View.OnTouchListener() {
-//                @Override
-//                public boolean onTouch(View view, MotionEvent motionEvent) {
-//                    Log.d(TAG, "onTouch: Liked..it");
-//                    return mGestureDetector.onTouchEvent(motionEvent);
-//                }
-//            });
-//        }else if (!likeButton.isLiked()){
-//            likeButton.setOnTouchListener(new View.OnTouchListener() {
-//                @Override
-//                public boolean onTouch(View view, MotionEvent motionEvent) {
-//                    Log.d(TAG, "onTouch: Unliked..it");
-//                    return mGestureDetector.onTouchEvent(motionEvent);
-//                }
-//            });
-//        }
+        if (mLikedByCurrentUser) {
+           likeButton.setLiked(true);
+        }else if (!mLikedByCurrentUser){
+            likeButton.setLiked(false);
+        }
 
 
 
