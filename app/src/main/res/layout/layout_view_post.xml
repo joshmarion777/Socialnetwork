@@ -126,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:text="Liked by Joshua, JOhn, Jude and 1000 others"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:id="@+id/image_likes"
                 />
 
@@ -135,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:text="joshua_paul_marion mac #apple"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="15sp"
                 android:id="@+id/image_caption"
                 android:layout_below="@id/image_likes"
                 android:layout_marginTop="5dp"/>
@@ -144,8 +144,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="View all 100 comments"
-                android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textColor="@color/grey"
+                android:textSize="13sp"
                 android:layout_below="@id/image_caption"
                 android:layout_marginTop="5dp"
                 android:id="@+id/image_comments_link"/>
@@ -155,7 +155,7 @@
                 android:layout_height="wrap_content"
                 android:text="1 HOUR AGO"
                 android:textColor="@color/grey"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:layout_below="@id/image_comments_link"
                 android:layout_marginTop="5dp"
                 android:id="@+id/image_time_posted"/>
