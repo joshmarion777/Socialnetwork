@@ -91,11 +91,11 @@ public class ViewProfileFragment extends Fragment {
 
         View view  = inflater.inflate(R.layout.fragment_view_profile,container, false);
 
-        mDisplayName = (TextView) view.findViewById(R.id.vpdisplay_name);
-        mUsername = (TextView) view.findViewById(R.id.vpusername);
-        mWebsite = (TextView) view.findViewById(R.id.vpwebsite);
-        mDescription = (TextView) view.findViewById(R.id.vpdescription);
-        mProfilePhoto = (CircleImageView) view.findViewById(R.id.vpprofile_photo);
+        mDisplayName = (TextView) view.findViewById(R.id.display_name);
+        mUsername = (TextView) view.findViewById(R.id.username);
+        mWebsite = (TextView) view.findViewById(R.id.website);
+        mDescription = (TextView) view.findViewById(R.id.description);
+        mProfilePhoto = (CircleImageView) view.findViewById(R.id.profile_photo);
         mPosts = (TextView) view.findViewById(R.id.tvPosts);
         mFollowers = (TextView) view.findViewById(R.id.tvFollowers);
         mFollowing = (TextView) view.findViewById(R.id.tvFollowing);

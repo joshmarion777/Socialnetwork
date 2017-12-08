@@ -30,7 +30,7 @@
                     android:textSize="20sp"
                     android:textColor="@color/black"
                     android:layout_marginStart="15dp"
-                    android:id="@+id/vpusername"
+                    android:id="@+id/username"
                     android:layout_toRightOf="@id/ivBackArrow"/>
 
             </RelativeLayout>
