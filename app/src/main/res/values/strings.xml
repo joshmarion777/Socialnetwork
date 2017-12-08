@@ -36,6 +36,8 @@
     <string name="field_tags">tags</string>
     <string name="field_image_path">image_path</string>
     <string name="field_comments">comments</string>
+    <string name="dbname_following">following</string>
+    <string name="dbname_followers">followers</string>
 
 
     <!-- photo types -->

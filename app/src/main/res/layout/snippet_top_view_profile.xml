@@ -100,7 +100,7 @@
         <TextView
             android:id="@+id/follow"
             android:layout_width="137dp"
-            android:layout_height="18dp"
+            android:layout_height="20dp"
             android:text="Follow"
             android:textColor="@color/white"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -117,7 +117,7 @@
         <TextView
             android:id="@+id/unfollow"
             android:layout_width="137dp"
-            android:layout_height="18dp"
+            android:layout_height="20dp"
             android:text="Unfollow"
             android:textColor="@color/black"
             app:layout_constraintLeft_toLeftOf="parent"

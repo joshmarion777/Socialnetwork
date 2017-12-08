@@ -23,7 +23,8 @@ import com.example.josh.socialnetwork.models.Photo;
 
 public class ProfileActivity extends AppCompatActivity implements
         ProfileFragment.OnGridImageSelectedListener,
-        ViewPostFragment.OncommentThreadSelectedListener{
+        ViewPostFragment.OncommentThreadSelectedListener,
+        ViewProfileFragment.OnGridImageSelectedListener{
 
     private static final String TAG = "ProfileActivity";
 
@@ -65,7 +66,7 @@ public class ProfileActivity extends AppCompatActivity implements
 
     private Context mContext = ProfileActivity.this ;
 
-    private ProgressBar mProgrssBar ;
+    private ProgressBar mProgrssBar;
     private ImageView profilePhoto;
 
     @Override

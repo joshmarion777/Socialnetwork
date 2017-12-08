@@ -34,7 +34,7 @@
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:layout_width="80dp"
                             android:layout_height="80dp"
-                            android:id="@+id/profile_photo"
+                            android:id="@+id/vpprofile_photo"
                             app:civ_border_color="@color/black"
                             app:civ_border_width="0.5dp"
                             android:layout_centerVertical="true"/>
@@ -48,7 +48,7 @@
                         android:layout_marginStart="30dp"
                         android:layout_marginEnd="30dp" >
 
-                        <include layout="@layout/snippet_top_profile"/>
+                        <include layout="@layout/snippet_top_view_profile"/>
 
                     </RelativeLayout>
 
@@ -66,7 +66,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/display_name"
+                        android:id="@+id/vpdisplay_name"
                         android:textColor="@color/black"
                         android:textStyle="bold"
                         android:text="Joshua"
@@ -75,7 +75,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/description"
+                        android:id="@+id/vpdescription"
                         android:textColor="@color/black"
                         android:layout_marginTop="5dp"
                         android:text="I love Jesus"
@@ -83,7 +83,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/website"
+                        android:id="@+id/vpwebsite"
                         android:textColor="@color/link_blue"
                         android:text="joshmarion777.com"
                         android:textSize="16sp"
