@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -16,6 +17,9 @@ import com.example.josh.socialnetwork.R;
 import com.example.josh.socialnetwork.Utils.BottomNavigationViewHelper;
 import com.example.josh.socialnetwork.Utils.SectionsPagerAdapter;
 import com.example.josh.socialnetwork.Utils.UniversalImageLoader;
+import com.example.josh.socialnetwork.Utils.ViewCommentsFragment;
+import com.example.josh.socialnetwork.models.Photo;
+import com.example.josh.socialnetwork.models.UserAccountSettings;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
@@ -68,6 +72,22 @@ public class HomeActivity extends AppCompatActivity {
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_camera);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_insta);
         tabLayout.getTabAt(2).setIcon(R.drawable.ic_arrow);
+    }
+
+    public void onCommentThreadselected(Photo photo, UserAccountSettings settings){
+        Log.d(TAG, "onCommentThreadselected: selected a comment thread");
+
+        ViewCommentsFragment fragment = new ViewCommentsFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(getString(R.string.bundle_photo), photo);
+        args.putParcelable(getString(R.string.bundle_user_account_settings), settings);
+        fragment.setArguments(args);
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, fragment);
+        transaction.addToBackStack(getString(R.string.view_comments_fragment));
+        transaction.commit();
+
     }
 
     /**

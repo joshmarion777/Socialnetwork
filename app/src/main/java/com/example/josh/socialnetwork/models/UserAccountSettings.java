@@ -1,10 +1,13 @@
 package com.example.josh.socialnetwork.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by JOSH on 20-10-2017.
  */
 
-public class UserAccountSettings {
+public class UserAccountSettings implements Parcelable {
 
     private String display_name;
     private String description;
@@ -33,6 +36,30 @@ public class UserAccountSettings {
     public UserAccountSettings() {
 
     }
+
+    protected UserAccountSettings(Parcel in) {
+        display_name = in.readString();
+        description = in.readString();
+        followers = in.readLong();
+        posts = in.readLong();
+        following = in.readLong();
+        profile_photo = in.readString();
+        username = in.readString();
+        website = in.readString();
+        user_id = in.readString();
+    }
+
+    public static final Creator<UserAccountSettings> CREATOR = new Creator<UserAccountSettings>() {
+        @Override
+        public UserAccountSettings createFromParcel(Parcel in) {
+            return new UserAccountSettings(in);
+        }
+
+        @Override
+        public UserAccountSettings[] newArray(int size) {
+            return new UserAccountSettings[size];
+        }
+    };
 
     public String getDisplay_name() {
         return display_name;
@@ -120,4 +147,21 @@ public class UserAccountSettings {
                 '}';
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(display_name);
+        parcel.writeString(description);
+        parcel.writeLong(followers);
+        parcel.writeLong(posts);
+        parcel.writeLong(following);
+        parcel.writeString(profile_photo);
+        parcel.writeString(username);
+        parcel.writeString(website);
+        parcel.writeString(user_id);
+    }
 }
