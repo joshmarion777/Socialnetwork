@@ -119,6 +119,7 @@ public class ViewPostFragment extends Fragment {
         setupBottomNavigationView();
 
 
+
         return view;
     }
 
@@ -258,7 +259,7 @@ public class ViewPostFragment extends Fragment {
 
                             String[] splitUsers = mUsers.toString().split(",");
 
-                            if (mUsers.toString().contains(mUserAccountSettings.getUsername() + ",")){
+                            if (mUsers.toString().contains(mCurrentUser.getUsername() + ",")){
                                 mLikedByCurrentUser = true;
                             }else {
                                 mLikedByCurrentUser = false;
@@ -294,7 +295,7 @@ public class ViewPostFragment extends Fragment {
                                         + "  and " + (splitUsers.length - 3) + " Others";
                             }
                             setupWidgets();
-                        }
+                     }
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {

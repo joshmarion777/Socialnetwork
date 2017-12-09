@@ -19,7 +19,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.josh.socialnetwork.Login.LoginActivity;
 import com.example.josh.socialnetwork.Profile.AccountSettingsActivity;
 import com.example.josh.socialnetwork.R;
 import com.example.josh.socialnetwork.models.Comment;
@@ -51,7 +50,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ViewProfileFragment extends Fragment {
 
-    private static final String TAG = "ProfileFragment";
+    private static final String TAG = "ViewProfileFragment";
 
     public interface OnGridImageSelectedListener{
         void onGridImageSelected(Photo photo, int activityNumber);
@@ -225,7 +224,7 @@ public class ViewProfileFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                ArrayList<Photo> photos  = new ArrayList<>();
+                final ArrayList<Photo> photos  = new ArrayList<>();
 
                 for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
 
@@ -259,7 +258,25 @@ public class ViewProfileFragment extends Fragment {
                     photo.setLikes(likesList);
                     photos.add(photo);
                 }
-               setupImageGrid(photos);
+                //setup the image grid
+                int gridWidth = getResources().getDisplayMetrics().widthPixels;
+                int imageWidth = gridWidth / NUM_GRID_COLUMNS;
+                gridview.setColumnWidth(imageWidth);
+
+                ArrayList<String> imgUrls = new ArrayList<>();
+                for(int i =0 ; i< photos.size(); i++){
+                    imgUrls.add(photos.get(i).getImage_path());
+                }
+                GridImageAdapter adapter = new GridImageAdapter(getActivity(), R.layout.layout_grid_imageview, "", imgUrls);
+                gridview.setAdapter(adapter);
+
+                gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                        Log.d(TAG, "onItemClick: image selected");
+                        mOnGridImageSelectedListener.onGridImageSelected(photos.get(position), ACTIVITY_NUM);
+                    }
+                });
             }
 
             @Override
@@ -268,6 +285,29 @@ public class ViewProfileFragment extends Fragment {
             }
         });
     }
+
+//    private void setupImageGrid(final ArrayList<Photo> photos){
+//
+//        //setup the image grid
+//        int gridWidth = getResources().getDisplayMetrics().widthPixels;
+//        int imageWidth = gridWidth / NUM_GRID_COLUMNS;
+//        gridview.setColumnWidth(imageWidth);
+//
+//        ArrayList<String> imgUrls = new ArrayList<>();
+//        for(int i =0 ; i< photos.size(); i++){
+//            imgUrls.add(photos.get(i).getImage_path());
+//        }
+//        GridImageAdapter adapter = new GridImageAdapter(getActivity(), R.layout.layout_grid_imageview, "", imgUrls);
+//        gridview.setAdapter(adapter);
+//
+//        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+//                Log.d(TAG, "onItemClick: image selected");
+//                mOnGridImageSelectedListener.onGridImageSelected(photos.get(position), ACTIVITY_NUM);
+//            }
+//        });
+//    }
 
     private void isFollowing() {
         Log.d(TAG, "isFollowing: checking if following the user");
@@ -400,28 +440,6 @@ public class ViewProfileFragment extends Fragment {
         editProfile.setVisibility(View.VISIBLE);
     }
 
-    private void setupImageGrid(final ArrayList<Photo> photos){
-
-        //setup the image grid
-        int gridWidth = getResources().getDisplayMetrics().widthPixels;
-        int imageWidth = gridWidth / NUM_GRID_COLUMNS;
-        gridview.setColumnWidth(imageWidth);
-
-        ArrayList<String> imgUrls = new ArrayList<>();
-        for(int i =0 ; i< photos.size(); i++){
-            imgUrls.add(photos.get(i).getImage_path());
-        }
-        GridImageAdapter adapter = new GridImageAdapter(getActivity(), R.layout.layout_grid_imageview, "", imgUrls);
-        gridview.setAdapter(adapter);
-
-        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                mOnGridImageSelectedListener.onGridImageSelected(photos.get(position), ACTIVITY_NUM);
-            }
-        });
-    }
-
     private User getUserFromBundle(){
         Log.d(TAG, "getUserFromBundle: args: " + getArguments());
 
@@ -494,19 +512,6 @@ public class ViewProfileFragment extends Fragment {
 
 
     /**
-     * Checking if the @param user in loggedd in
-     * @param user
-     */
-    private void checkCurrentUser(FirebaseUser user){
-        Log.d(TAG, "checkCurrentUser: checking if user logged in.");
-
-        if(user == null){
-            Intent intent = new Intent(mContext, LoginActivity.class);
-            startActivity(intent);
-        }
-    }
-
-    /**
      * Setup the firebase auth object
      */
 
@@ -521,8 +526,6 @@ public class ViewProfileFragment extends Fragment {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
 
-                //check if the user is logged in
-                checkCurrentUser(user);
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
